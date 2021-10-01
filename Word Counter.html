@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+</head>
+<style>
+    @font-face {
+        font-family: Poppins;
+        src: url(/Fonts/Poppins.ttf);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: Poppins;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-color: orangered;
+    }
+
+    #wordCounter {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #heading {
+        color: white;
+        padding: 20px;
+        background: var(--primary-color);
+        text-align: center;
+    }
+
+    #textarea {
+        flex-grow: 1;
+        padding: 8px;
+        font-size: 18px;
+        width: 100%;
+        outline: none;
+        resize: none;
+        border: none;
+        border-left: 2.5vw solid var(--primary-color);
+        border-right: 2.5vw solid var(--primary-color);
+    }
+
+    #para {
+        color: #fff;
+        padding: 18px;
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+        background: var(--primary-color);
+    }
+
+    #clearButton {
+        position: absolute;
+        right: calc(2.5vw - 1px);
+        bottom: 66px;
+    }
+
+    #clearButton button {
+        width: 60px;
+        padding: 4px;
+        border: none;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.7);
+        transition: background-color .3s;
+    }
+
+    #clearButton button:active {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    @media screen and (max-width:460px) {
+        #heading {
+            padding: 15px;
+        }
+
+        #textarea {
+            border-width: 3.5vw;
+        }
+
+        #clearButton {
+            position: absolute;
+            right: calc(3.5vw - 1px);
+            bottom: 60px;
+        }
+
+        #para {
+            padding: 15px;
+        }
+    }
+
+</style>
+
+<body>
+    <div id="wordCounter">
+        <h1 id="heading">Word and Character Counter</h1>
+        <textarea id="textarea" placeholder="Enter/Paste your text.." autofocus></textarea>
+        <div id="clearButton">
+            <button type="button">Clear</button>
+        </div>
+        <p id="para">
+            <span id="words">0</span> Words and <span id="char">0</span> Characters
+        </p>
+    </div>
+    <script>
+        let textarea = document.getElementById("textarea");
+        let words = document.getElementById("words");
+        let char = document.getElementById("char");
+
+        textarea.oninput = function () {
+
+            let text = this.value;
+            char.innerText = text.length;
+            text = text.trim();
+            let splitText = text.split(" ");
+            let cleanText = splitText.filter(function (ary) {
+                return ary != "";
+            });
+            words.innerHTML = cleanText.length
+            console.log(cleanText);
+        }
+
+        document.querySelector("#clearButton button").onclick = function () {
+            textarea.value = "";
+            char.innerText = "0";
+            words.innerHTML = "0";
+        }
+    </script>
+</body>
+
+</html>
